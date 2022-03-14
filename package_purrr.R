@@ -86,3 +86,38 @@ operacao(2)
 operacao(5)
 
 map_dbl(1:100, operacao)
+
+## 4. Use a função map() para criar gráficos de dispersão da receita vs orçamento para os 
+## filmes da base imdb.  Os filmes de cada ano deverão compor um gráfico diferente.
+## Faça o resultado ser (a) uma lista de gráficos e (b) uma nova coluna na base imdb 
+## (utilizando a função tidyr::nest()).
+
+imdb <- readr::read_rds("imdb.rds")
+
+## gerando uma lista de gráficos
+
+fazer_grafico <- function(tab, ano_) {
+  tab %>% 
+    filter(ano == ano_) %>% 
+    ggplot(aes(x = orcamento, y = receita)) +
+    geom_point()
+}
+
+anos <- unique(imdb$ano)
+
+graficos <- map(anos, fazer_grafico, tab = imdb)
+
+## gerando uma coluna na tabela imdb
+
+fazer_grafico2 <- function(tab) {
+  tab %>% 
+    ggplot(aes(x = orcamento, y = receita)) +
+    geom_point()
+}
+
+imdb_com_graficos <- imdb %>% 
+  group_by(ano) %>% 
+  tidyr::nest() %>%  # Gera uma coluna "data" com todos os dados para cada ano
+  mutate(
+    grafico = map(data, fazer_grafico2)
+  )
