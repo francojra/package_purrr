@@ -6,3 +6,7 @@
 - Fonte: Associação Brasileira de Jurimetria e Curso R
 
 ### Etapas do script
+
+1. Conceito do pacote purrr;
+2. Iterações básicas;
+3. Programação Funcional.
