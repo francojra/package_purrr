@@ -121,3 +121,24 @@ imdb_com_graficos <- imdb %>%
   mutate(
     grafico = map(data, fazer_grafico2)
   )
+
+## 5. Utilize a função walk para salvar cada ano da base imdb em um 
+## arquivo .rds diferente, isto é, o arquivo imdb_2001.rds, por exemplo, 
+## deve conter apenas filmes do ano de 2001.
+
+## Criar a função com write_rds para salvar as tabelas de cada ano
+
+salvar_base <- function(tab, ano_) {
+  tab %>% 
+    filter(ano == ano_) %>% 
+    readr::write_rds(file = paste0("C:/Users/jeann/Documents/pRaticando-Softawer-R/imdb_", ano_, ".rds"))
+}
+
+## Selecionar e salvar apenas os anos
+
+anos <- imdb %>% 
+  filter(!is.na(ano)) %>% 
+  pull(ano)
+
+walk(anos, salvar_base, tab = imdb)
+
