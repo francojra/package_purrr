@@ -39,3 +39,33 @@ obj <- 10:15
 
 obj <- map(obj, soma_um)
 obj
+
+# Programação Funcional --------------------------------------------------------------------------------------------------------------------
+
+## Baixar pacotes auxiliares
+
+library(dplyr)
+library(ggplot2)
+
+## 1. Utilize a função map() para calcular a média de cada coluna da base mtcars.
+
+map(mtcars, mean)
+
+## 2. Use a função map() para testar se cada elemento do vetor letters é uma vogal ou não.
+## Dica: você precisará criar uma função para testar se é uma letra é vogal.
+## Faça o resultado ser (a) uma lista de TRUE/FALSE e (b) um vetor de TRUE/FALSE.
+
+testar_vogal <- function(x) {
+  if (x %in% c("a", "e", "i", "o", "u")) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
+map(letters, testar_vogal) # retornando uma lista
+
+## retornando um vetor (2 soluções equivalentes)
+
+map(letters, testar_vogal) %>% flatten_lgl()
+map_lgl(letters, testar_vogal)
