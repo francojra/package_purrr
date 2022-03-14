@@ -69,3 +69,20 @@ map(letters, testar_vogal) # retornando uma lista
 
 map(letters, testar_vogal) %>% flatten_lgl()
 map_lgl(letters, testar_vogal)
+
+## 3 Faça uma função que divida um número por 2 se ele for par ou multiplique ele por 
+## 2 caso seja ímpar. Utilize uma função map para aplicar essa função ao vetor 1:100.
+## O resultado do código deve ser um vetor numérico.
+
+operacao <- function(x) {
+  if (x %% 2 == 0) {
+    return(x / 2)
+  } else {
+    return(x * 2)
+  }
+}
+
+operacao(2)
+operacao(5)
+
+map_dbl(1:100, operacao)
